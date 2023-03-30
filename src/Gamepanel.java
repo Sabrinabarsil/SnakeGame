@@ -26,8 +26,7 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 
 	private Random r;
 
-	private int xCoor = 10, yCoor = 10;
-	private int size = 5;
+	private int xCoor = 10, yCoor = 10, size = 15;
 
 	private boolean right = true, left = false, up = false, down = false;
 
@@ -108,16 +107,30 @@ public class Gamepanel extends JPanel implements Runnable, KeyListener {
 			apple = new Apple(xCoor, yCoor, 10);
 			apples.add(apple);
 		}
-		
-		for (int i = 0; i<  apples.size(); i++) {
+
+		for (int i = 0; i < apples.size(); i++) {
 			if (xCoor == apples.get(i).getxCoor() && yCoor == apples.get(i).getyCoor()) {
 				size++;
 				apples.remove(i);
 				i++;
 			}
-			
+
 		}
+// colisão com o corpo da cobrinha
 		
+		for(int i = 0; i < snake.size(); i++ ) {
+			if (xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
+				if(i != snake.size()-1) {
+					System.out.println("GAME OVER");
+					stop();
+				}
+			}
+		}
+// colisão com a borda
+		if (xCoor < 0 || xCoor > 49 || yCoor < 0 || yCoor > 49) {
+			System.out.println("GAME OVER");
+			stop();
+		}
 
 	}
 
